@@ -17,6 +17,8 @@ typedef struct pdate_s{
 
 int isleapyear(int year);
 int dateSetYDays(pdate *pd, int ydays);
+int dateDiff(pdate *pd1, pdate *pd2);
+int dateInit(pdate *pd, int year, int month, int day);
 
 int dateAddDays(pdate *pd, int number);
 int dateSubDays(pdate *pd, int number);
