@@ -191,14 +191,14 @@ int showTableRows(pt_table *pt, int startindex, int rows)
 		for( j = 0; j < irow.count ; j++)
 		{
 			pt_cell *p = irow.cells[j];
-			int len = utf8_strlen(p->value);
+			int len = utf8_strlen(p ? p->value : "");
 			int maxlen = pt->cols[p->icol].maxlength;
 
 			int left = (maxlen - len) / 2;
 			int right = maxlen - len - left;
 
 			while(left--) strcat(buf, " ");
-			strcat(buf, p->value);
+			strcat(buf, p ? p->value : "");
 			while(right--) strcat(buf, " ");
 			strcat(buf, " | ");
 
@@ -223,14 +223,14 @@ int showTableRows(pt_table *pt, int startindex, int rows)
 		for( j = 0; j < irow.count ; j++)
 		{
 			pt_cell *p = irow.cells[j];
-			int len = utf8_strlen(p->value);
+			int len = utf8_strlen(p ? p->value : "");
 			int maxlen = pt->cols[p->icol].maxlength;
 
 			int left = (maxlen - len) / 2;
 			int right = maxlen - len - left;
 
 			while(left--) strcat(buf, " ");
-			strcat(buf, p->value);
+			strcat(buf, p ? p->value : "");
 			while(right--) strcat(buf, " ");
 			strcat(buf, " | ");
 
@@ -499,7 +499,6 @@ int saveTableCsv(pt_table *pt, char *filename)
 	buf_size *= 3;
 
 	buf = malloc(buf_size);
-	memset(buf, 0, buf_size);
 
 	FILE *fd = fopen(filename, "w");
 	// --utf8 code in windows
@@ -508,11 +507,13 @@ int saveTableCsv(pt_table *pt, char *filename)
 	for( i = 0; i < lastrow; i++)
 	{
 		int j = 0, index = 0;
+		memset(buf, 0, buf_size);
 		pt_row irow = pt->rows[i];
 		for( j = 0; j < irow.count; j++)
 		{
 			pt_cell *p = irow.cells[j];
-			csvFormat(p->value, buf + index, buf_size - index);
+			if( p != NULL)
+				csvFormat(p->value, buf + index, buf_size - index);
 			strcat(buf, ",");
 			index = strlen(buf);
 		}
