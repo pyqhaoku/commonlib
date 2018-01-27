@@ -58,7 +58,7 @@ int dateSetYDays(pdate *pd, int ydays)
 			{
 				pd->wday = (pd->wday + ydays - pd->ydays) % 7;
 				if(pd->wday <= 0) pd->wday += 7;
-				pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+				pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 			}
 
 			break;
@@ -88,7 +88,7 @@ int dateSetDay(pdate *pd, int day)
 	pd->wday = (pd->wday + day - pd->day) % 7;
 	if(pd->wday <= 0) pd->wday += 7;
 
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 	pd->day = day;
 
 	return 0;
@@ -159,7 +159,7 @@ int dateAddDays(pdate *pd, int number)
 					pd->wday = (pd->wday + number) % 7;
 					if(pd->wday == 0) pd->wday = 7;
 
-					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 					break;
 				}
@@ -189,7 +189,7 @@ int dateAddDays(pdate *pd, int number)
 					pd->wday = (pd->wday + number) % 7;
 					if(pd->wday == 0) pd->wday = 7;
 
-					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 					break;
 				}
@@ -239,7 +239,6 @@ int dateSubDays(pdate *pd, int number)
 		if(rc > number)
 		{
 			dateAddDays(pd, rc - number);
-
 		}
 		else if(rc < number)
 		{
@@ -266,7 +265,7 @@ int dateSubDays(pdate *pd, int number)
 					pd->wday = (pd->wday - number) % 7;
 					if(pd->wday <= 0) pd->wday += 7;
 
-					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 					break;
 				}
@@ -296,7 +295,7 @@ int dateSubDays(pdate *pd, int number)
 					pd->wday = (pd->wday - number) % 7;
 					if(pd->wday == 0) pd->wday = 7;
 
-					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+					pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 					break;
 				}
@@ -439,8 +438,8 @@ int dateAddMonths(pdate *pd, int number)
 	pd->wday = (pd->wday + totalday) % 7;
 	if(pd->wday == 0) pd->wday = 7;
 
-	pd->ydays = arrydays[pd->month] + pd->day;
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->ydays = arrydays[pd->month - 1] + pd->day;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 	return totalday;
 }
@@ -540,8 +539,8 @@ int dateSubMonths(pdate *pd, int number)
 	pd->wday = (pd->wday + totalday) % 7;
 	if(pd->wday == 0) pd->wday = 7;
 
-	pd->ydays = arrydays[pd->month] + pd->day;
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->ydays = arrydays[pd->month - 1] + pd->day;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 	return totalday;
 }
@@ -597,8 +596,8 @@ int dateAddYears(pdate *pd, int number)
 	pd->wday = (pd->wday + totalday) % 7;
 	if(pd->wday == 0) pd->wday = 7;
 
-	pd->ydays = arrydays[pd->month] + pd->day;
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->ydays = arrydays[pd->month - 1] + pd->day;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 	return totalday;
 }
@@ -657,8 +656,8 @@ int dateSubYears(pdate *pd, int number)
 	pd->wday = (pd->wday - totalday) % 7;
 	if(pd->wday <= 0) pd->wday += 7;
 
-	pd->ydays = arrydays[pd->month] + pd->day;
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->ydays = arrydays[pd->month - 1] + pd->day;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 	return totalday;
 }
@@ -766,7 +765,7 @@ int dateInit(pdate *pd, int year, int month, int day)
 	pd->wday = (diff + 1) % 7;
 	if(pd->wday <= 0) pd->wday += 7;
 
-	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7;
+	pd->weeks = ((pd->ydays - pd->wday) + 6) / 7 + 1;
 
 	return 0;
 }
