@@ -70,7 +70,7 @@ int strcat_py(char **str, int *size, int num, char *fmt, ...)
 	va_start(arg, fmt);
 	/// total len
 	totallen += vsnprintf(NULL, 0, fmt, arg); 
-	if (totallen > (* size))
+	if (totallen >= (* size))
 	{
 		*size = totallen * num + 1;
 		char *bak = realloc((*str), *size );

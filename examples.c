@@ -14,7 +14,7 @@
  * @return 
  */
 /* ----------------------------------------------------------------------------*/
-int main()
+int pdateTest()
 {
 	char *testlist[] = {"1day", "2day", "4day", "5day", "8day", "10day", "16day", "625day", "1000day", "5000day", "1month", "2month", "10month", "11month", "12month", "13month", "14month", "100month", "1year", "2year", "3year", "4year", "5year"};
 
@@ -165,5 +165,69 @@ int main()
 	saveTableCsv(pt, "dateaddtest.csv");
 	freeTable(pt);
 
+	return 0;
+}
+
+/* ----------------------------------------------------------------------------*/
+/**
+ * @brief strcat_py Test
+ *
+ * @return 
+ */
+/* ----------------------------------------------------------------------------*/
+int pstring_Strcatpy_Test()
+{
+	char test1[10240], test2[10240];
+	memset(test1, '0', sizeof(test1));
+	memset(test2, ' ', sizeof(test2));
+
+	char *str = NULL;
+	int str_size = 0;
+
+	int totallen = 0;
+
+	int i = 0;
+	for( i = 10000; i >= 0; i--)
+	{
+		snprintf_p(&str, &str_size, 10, "Test string");
+		totallen = strlen(str);
+
+		test1[i] = 0;
+		strcat_py(&str, &str_size, 1, "%s", test1);
+		// check 
+		totallen += i;
+		int len = strlen(str);
+		if(len ^ totallen)
+		{
+			printf("1[%d]len=%d;totallen=%d;str=|%s|\n", i, len, totallen, str);
+		}
+	}
+
+	memset(test1, '0', sizeof(test1));
+	free(str); str = NULL; str_size = 0;
+	totallen = 0;
+	for( i = 10000; i >= 0; i--)
+	{
+		snprintf_p(&str, &str_size, 10, "Test string");
+		totallen = strlen(str);
+
+		test1[i] = 0;
+		strcat_py(&str, &str_size, 2, "%s and ", test1);
+		// check 
+		totallen += i + 5;
+		int len = strlen(str);
+		if(len ^ totallen)
+		{
+			printf("2[%d]len=%d;totallen=%d;str=|%s|\n", i, len, totallen, str);
+		}
+	}
+	free(str); str = NULL; str_size = 0;
+
+	return 0;
+}
+
+int main()
+{
+	pstring_Strcatpy_Test();
 	return 0;
 }
