@@ -249,6 +249,8 @@ int showTableRows(pt_table *pt, int startindex, int rows)
 		//sleep(1);
 	}
 
+	free(buf);
+
 	return 0;
 }
 
@@ -520,6 +522,8 @@ int saveTableCsv(pt_table *pt, char *filename)
 
 		fprintf(fd, "%s\n", buf);
 	}
+
+	free(buf);
 
 	fclose(fd);
 

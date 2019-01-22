@@ -70,7 +70,7 @@ int strcat_py(char **str, int *size, int num, char *fmt, ...)
 	va_start(arg, fmt);
 	/// total len
 	totallen += vsnprintf(NULL, 0, fmt, arg); 
-	if (totallen > (* size))
+	if (totallen >= (* size))
 	{
 		*size = totallen * num + 1;
 		char *bak = realloc((*str), *size );
@@ -900,6 +900,32 @@ char *doubletostring(double num)
 	}
 	return numstr;
 }
+
+/*
+char *strcasestr(const char *string, const char *sub)
+{
+    char *bstring = strcpy_p((char *)string);
+    char *bsub = strcpy_p((char *)sub);
+
+    int i = 0, len = strlen(bstring);
+    for( i = 0; i < len; i++)
+    {
+        bstring[i] = toupper(bstring[i]);
+    }
+
+    len = strlen(bsub);
+    for( i = 0; i < len; i++)
+    {
+        bsub[i] = toupper(bsub[i]);
+    }
+
+    char *p = strstr(bstring, bsub);
+    const char *r = p ? string + (p - bstring) : NULL;
+    free(bstring);
+    free(bsub);
+    return (char *)r;
+}
+*/
 
 //#define __TEST_PSTRING_
 #ifdef __TEST_PSTRING_
