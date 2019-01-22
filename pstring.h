@@ -27,6 +27,7 @@ int stringRemoveSpace(char *str);
 void cstring_trim(char *str);
 void replace(char originalString[], int len, char key[], char swap[]);
 int stringEndOfStr(char *string, char *end);
+char *strcasestr(const char *string, const char *sub);
 
 int charToNumber(char ch);
 int parseNumber(char *number, int *value);

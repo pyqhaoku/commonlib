@@ -901,6 +901,32 @@ char *doubletostring(double num)
 	return numstr;
 }
 
+/*
+char *strcasestr(const char *string, const char *sub)
+{
+    char *bstring = strcpy_p((char *)string);
+    char *bsub = strcpy_p((char *)sub);
+
+    int i = 0, len = strlen(bstring);
+    for( i = 0; i < len; i++)
+    {
+        bstring[i] = toupper(bstring[i]);
+    }
+
+    len = strlen(bsub);
+    for( i = 0; i < len; i++)
+    {
+        bsub[i] = toupper(bsub[i]);
+    }
+
+    char *p = strstr(bstring, bsub);
+    const char *r = p ? string + (p - bstring) : NULL;
+    free(bstring);
+    free(bsub);
+    return (char *)r;
+}
+*/
+
 //#define __TEST_PSTRING_
 #ifdef __TEST_PSTRING_
 
